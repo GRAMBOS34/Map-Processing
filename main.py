@@ -40,7 +40,7 @@ class GridWindow:
         self.canvas.bind("<Button-1>", self.onClick)
 
         self.coordinates = []
-        self.dotRadius = 3
+        self.dotRadius = 5
 
         # ------------ Frame for Buttons ----------------
         self.buttonFrame = tk.Frame(master)
@@ -62,6 +62,11 @@ class GridWindow:
         # Adds the coordinate to the array
         x = event.x
         y = event.y
+
+        if len(self.coordinates) != 0:
+            prevCoords = self.coordinates[len(self.coordinates)-1] 
+            self.drawLine(prevCoords[0], prevCoords[1], x, y)
+
         self.coordinates.append((x, y))
         self.drawDot(x, y)
         self.statusLabel.config(text=f"Clicked at: ({x}, {y})")
@@ -74,6 +79,10 @@ class GridWindow:
         x2 = x + self.dotRadius
         y2 = y + self.dotRadius
         self.canvas.create_oval(x1, y1, x2, y2, fill="blue")
+
+    def drawLine(self, prevX, prevY, newX, newY):
+        # Draws a line between two points
+        self.canvas.create_line(prevX, prevY, newX, newY, fill="black", width=3, arrow="last")
 
     def clearCanvas(self):
         # Clears the grid space and removes all the coordinates
