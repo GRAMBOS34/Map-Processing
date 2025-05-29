@@ -14,21 +14,29 @@ However, this will change depending on the size of the detected area
 
 import tkinter as tk
 
-# Lmfao idk how this works i literally just copied it from AI because I was running out of time lol
-# You'd be surprised how much code is usually either copied or AI-Generated in these types of things
-# However, you'd learn more if you actually did this yourself rather than have someone/something else
-# do it for you
 class GridWindow:
     def __init__(self, master):
         self.master = master
         master.title("Robot Mapping")
 
+        """
+        Frames are like divs in html
+        They're just boxes where we can isolate certain parts of our ui
+
+        In here, I split the grid space and the space for buttons
+        so that I don't have to make everything relative to other elements, 
+        I can just make boxes that are relative to each other
+        (You'll understand how much easier this is if you actually do it)
+        """
+
         # ------------ Frame for Grid Space ----------------
         self.gridFrame = tk.Frame(master)
         self.gridFrame.pack(side=tk.LEFT, padx=10, pady=10)
+
         self.grid_size = 600
         self.canvas = tk.Canvas(self.gridFrame, width=self.grid_size, height=self.grid_size, bg="white")
         self.canvas.pack()
+
         self.canvas.bind("<Button-1>", self.onClick)
 
         self.coordinates = []
@@ -37,6 +45,10 @@ class GridWindow:
         # ------------ Frame for Buttons ----------------
         self.buttonFrame = tk.Frame(master)
         self.buttonFrame.pack(side=tk.RIGHT, padx=10, pady=10, fill=tk.Y)
+
+        # Label
+        self.statusLabel = tk.Label(self.buttonFrame, text="None")
+        self.statusLabel.pack(pady=5)
 
         # Clear button
         self.clearButton = tk.Button(self.buttonFrame, text="Clear Grid", command=self.clearCanvas)
@@ -47,14 +59,16 @@ class GridWindow:
         self.sendButton.pack(pady=5)
 
     def onClick(self, event):
+        # Adds the coordinate to the array
         x = event.x
         y = event.y
         self.coordinates.append((x, y))
         self.drawDot(x, y)
-        print(f"Clicked at: ({x}, {y})")
-        print(f"Coordinates array: {self.coordinates}")
+        self.statusLabel.config(text=f"Clicked at: ({x}, {y})")
 
     def drawDot(self, x, y):
+        # Draws the dot on the screen
+        #! I need a fucking bg for this dude i can't just show a blank screen
         x1 = x - self.dotRadius
         y1 = y - self.dotRadius
         x2 = x + self.dotRadius
@@ -62,12 +76,22 @@ class GridWindow:
         self.canvas.create_oval(x1, y1, x2, y2, fill="blue")
 
     def clearCanvas(self):
+        # Clears the grid space and removes all the coordinates
         self.canvas.delete("all")  # Delete all items on the canvas
         self.coordinates = []
-        print("Canvas cleared. Coordinates array reset.")
+        self.statusLabel.config(text="Canvas cleared. Coordinates array reset.")
 
     def sendCoordinates(self):
-        print(f"Current coordinates: {self.coordinates}")
+        #? Adds the coordinates to a txt file which will be read by the map reader (idk what to call it for now)
+
+        with open("coordinateFile.txt", "w") as file:
+            for i in self.coordinates:
+                file.write(str(f"{i}, \n"))
+
+        # Clears the grid space and removes all the coordinates
+        self.canvas.delete("all")  # Delete all items on the canvas
+        self.coordinates = []
+        self.statusLabel.config(text="Coordinates Sent")
 
 root = tk.Tk()
 grid_window = GridWindow(root)
