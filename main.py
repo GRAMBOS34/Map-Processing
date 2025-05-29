@@ -10,8 +10,6 @@ having the area increase in size
 However, this will change depending on the size of the detected area
 """
 
-# TODO: Create a GUI where i click on a grid and the coordinates will be stored in an array (2d, 1d, it doesn't matter)
-
 import tkinter as tk
 
 class GridWindow:
@@ -38,6 +36,7 @@ class GridWindow:
         self.canvas.pack()
 
         self.canvas.bind("<Button-1>", self.onClick)
+        self.canvas.bind("<Configure>", self.create_grid)
 
         self.coordinates = []
         self.dotRadius = 5
@@ -58,6 +57,19 @@ class GridWindow:
         self.sendButton = tk.Button(self.buttonFrame, text="Send Coordinates", command=self.sendCoordinates)
         self.sendButton.pack(pady=5)
 
+    def create_grid(self, event=None):
+        w = self.canvas.winfo_width() # Get current width of canvas
+        h = self.canvas.winfo_height() # Get current height of canvas
+        self.canvas.delete('grid_line') # Will only remove the grid_line
+
+        # Creates all vertical lines at intevals of 50 cm
+        for i in range(0, w, 50):
+            self.canvas.create_line([(i, 0), (i, h)], tag='grid_line')
+
+        # Creates all horizontal lines at intevals of 50 cm
+        for i in range(0, h, 50):
+            self.canvas.create_line([(0, i), (w, i)], tag='grid_line')
+
     def onClick(self, event):
         # Adds the coordinate to the array
         x = event.x
@@ -73,20 +85,19 @@ class GridWindow:
 
     def drawDot(self, x, y):
         # Draws the dot on the screen
-        #! I need a fucking bg for this dude i can't just show a blank screen
         x1 = x - self.dotRadius
         y1 = y - self.dotRadius
         x2 = x + self.dotRadius
         y2 = y + self.dotRadius
-        self.canvas.create_oval(x1, y1, x2, y2, fill="blue")
+        self.canvas.create_oval(x1, y1, x2, y2, fill="blue", tag='path')
 
     def drawLine(self, prevX, prevY, newX, newY):
         # Draws a line between two points
-        self.canvas.create_line(prevX, prevY, newX, newY, fill="black", width=3, arrow="last")
+        self.canvas.create_line(prevX, prevY, newX, newY, fill="black", width=3, arrow="last", tag='path')
 
     def clearCanvas(self):
         # Clears the grid space and removes all the coordinates
-        self.canvas.delete("all")  # Delete all items on the canvas
+        self.canvas.delete("path")  # Deletes only items with the tag "path"
         self.coordinates = []
         self.statusLabel.config(text="Canvas cleared. Coordinates array reset.")
 
@@ -98,7 +109,7 @@ class GridWindow:
                 file.write(str(f"{i}, \n"))
 
         # Clears the grid space and removes all the coordinates
-        self.canvas.delete("all")  # Delete all items on the canvas
+        self.canvas.delete("path")  # Delete only items with the tag "path"
         self.coordinates = []
         self.statusLabel.config(text="Coordinates Sent")
 
