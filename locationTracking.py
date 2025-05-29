@@ -12,7 +12,7 @@ class locationTrack:
         # Checks if the given coordinates are only within two dimensions
         # Just in case
         if len(coords1) != 2 or len(coords2) != 2:
-            # this line pretty much stops the program
+            # this line pretty much stops the program because it throws an error
             raise Exception("Coordinates don't exist, try adding or removing a value because this function only works with two dimensions")
         
         # Calculate the distance
@@ -31,7 +31,7 @@ class locationTrack:
         # Checks if the given coordinates are only within two dimensions
         # Just in case
         if len(previousPointCoords) != 2 or len(currentPointCoords) != 2 or len(nextPointCoords) != 2:
-            # this line pretty much stops the program
+            # this line pretty much stops the program because it throws an error
             raise Exception("Coordinates don't exist, try adding or removing a value because this function only works with two dimensions")
         
         # Get distances between coordinates
