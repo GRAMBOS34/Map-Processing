@@ -1,8 +1,7 @@
 import math
 
-
 # Gets the distance between two points
-def getDistance ( coords1:tuple, coords2:tuple) -> float:
+def getDistance (coords1, coords2) -> float:
     
     # Calculate the distance
     xDistComponent = abs(coords2[0] - coords1[0]) # Get the absolute value since we only need distance and not direction
@@ -15,12 +14,12 @@ def getDistance ( coords1:tuple, coords2:tuple) -> float:
 # Gets the next turning angle
 # the math will be explained within the function
 # coords will be taken as a tuple of two integers
-def getTurnAngle( previousPointCoords:tuple, currentPointCoords:tuple, nextPointCoords:tuple) -> float:
+def getTurnAngle(previousPointCoords, currentPointCoords, nextPointCoords) -> float:
     
     # Get distances between coordinates
-    distA = getDistance( previousPointCoords, currentPointCoords)
-    distB = getDistance( currentPointCoords, nextPointCoords)
-    distC = getDistance( previousPointCoords, nextPointCoords)
+    distA = getDistance(previousPointCoords, currentPointCoords)
+    distB = getDistance(currentPointCoords, nextPointCoords)
+    distC = getDistance(previousPointCoords, nextPointCoords)
 
     """
     This formula just rearranges the Law of Cosines to get the angle
