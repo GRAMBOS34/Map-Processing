@@ -31,6 +31,7 @@ class GridWindow:
         self.gridFrame = tk.Frame(master)
         self.gridFrame.pack(side=tk.LEFT, padx=10, pady=10)
 
+        # Canvas for the space where you can click
         self.grid_size = 600
         self.canvas = tk.Canvas(self.gridFrame, width=self.grid_size, height=self.grid_size, bg="white")
         self.canvas.pack()
@@ -79,17 +80,17 @@ class GridWindow:
             prevCoords = self.coordinates[len(self.coordinates)-1] 
             self.drawLine(prevCoords[0], prevCoords[1], x, y)
 
-        self.coordinates.append((x, y))
+        self.coordinates.append((x, y)) # add coordinates to the coordinates array
         self.drawDot(x, y)
-        self.statusLabel.config(text=f"Clicked at: ({x}, {y})")
+        self.statusLabel.config(text=f"Clicked at: ({x}, {y})") # Changes the status text
 
     def drawDot(self, x, y):
-        # Draws the dot on the screen
+        # Determines dimensions of the dot
         x1 = x - self.dotRadius
         y1 = y - self.dotRadius
         x2 = x + self.dotRadius
         y2 = y + self.dotRadius
-        self.canvas.create_oval(x1, y1, x2, y2, fill="blue", tag='path')
+        self.canvas.create_oval(x1, y1, x2, y2, fill="blue", tag='path') # Draws the dot
 
     def drawLine(self, prevX, prevY, newX, newY):
         # Draws a line between two points
@@ -98,7 +99,7 @@ class GridWindow:
     def clearCanvas(self):
         # Clears the grid space and removes all the coordinates
         self.canvas.delete("path")  # Deletes only items with the tag "path"
-        self.coordinates = []
+        self.coordinates = [] # Resets the coordinates array
         self.statusLabel.config(text="Canvas cleared. Coordinates array reset.")
 
     def sendCoordinates(self):
@@ -110,7 +111,7 @@ class GridWindow:
 
         # Clears the grid space and removes all the coordinates
         self.canvas.delete("path")  # Delete only items with the tag "path"
-        self.coordinates = []
+        self.coordinates = [] # Resets the coordinates array
         self.statusLabel.config(text="Coordinates Sent")
 
 root = tk.Tk()
