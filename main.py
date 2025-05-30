@@ -114,6 +114,8 @@ class GridWindow:
         self.coordinates = [] # Resets the coordinates array
         self.statusLabel.config(text="Coordinates Sent")
 
+
+# Shows the window
 root = tk.Tk()
 grid_window = GridWindow(root)
 root.mainloop()
