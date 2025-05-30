@@ -11,6 +11,8 @@ However, this will change depending on the size of the detected area
 """
 
 import tkinter as tk
+import requests
+import json
 
 class GridWindow:
     def __init__(self, master):
@@ -105,9 +107,17 @@ class GridWindow:
     def sendCoordinates(self):
         #? Adds the coordinates to a txt file which will be read by the map reader (idk what to call it for now)
 
-        with open("coordinateFile.txt", "w") as file:
-            for i in self.coordinates:
-                file.write(str(f"{i}, \n"))
+        # TODO: make a function to send the data to the Raspberry Pi
+
+        # Server URL
+        #! CHANGE THE URL IF NEEDED 
+        url = 'http://192.168.1.106:8080/new_coords'
+
+        # Send the array as JSON
+        response = requests.post(url, json={'coordinates': self.coordinates})
+
+        # Print the response
+        print(response.json())
 
         # Clears the grid space and removes all the coordinates
         self.canvas.delete("path")  # Delete only items with the tag "path"
