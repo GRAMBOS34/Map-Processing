@@ -29,7 +29,7 @@ We get c by drawing imaginary lines along their respective axes until they inter
 
 We can only really get away with this because we are working on a coordinate system
 
-So the full formula looks like this kinda like this:
+So the full formula looks kinda like this:
 
 $$
 \Large
@@ -49,7 +49,7 @@ And we express this function with this code:
 turnAngle = math.acos(((distA**2) + (distB**2) - (distC**2))/(2 * distA * distC))
 ```
 
-Notice how we still express this in terms of a, b, and c. Rather than the formula with d and e shown before.
+Notice how we still express this in terms of _a_, _b_, and _c_. Rather than the formula with _d_ and _e_ shown before.
 
 This is because we have distC which has to go through this calculation first:
 
