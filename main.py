@@ -4,8 +4,10 @@ What we're going to do here is to create an app that shows what the makeblock 's
 Essentially we'll have a graph that shows the coordinates of where the points are
 with lines connecting to each of them
 
-we'll have a 6x6m area because i don't have enough time to think of 
+we'll have a 2x2m area because i don't have enough time to think of 
 having the area increase in size 
+
+also using the fulll 6x6m area is just purely gratuitous in it of itself
 
 However, this will change depending on the size of the detected area
 """

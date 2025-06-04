@@ -1,6 +1,16 @@
 """
 Web server hosted on the Raspberry Pi to send and receive data to and from the laptop
 only within the same network
+
+I'm using flask because:
+a) It's what I'm familiar with
+b) I don't need to access it when I'm somewhere else
+c) Anything more capable is entirely superfluous
+
+Also, remember to update the urls in all the code that uses it when you need to run the server and the url changed:
+main.py
+makeblockCode/handheldCyberPi.py
+makeblockCode/mbot.py
 """
 
 from flask import Flask, request, jsonify
@@ -10,6 +20,9 @@ from dependencies import instructionSend
 app = Flask(__name__, template_folder="template")
 
 # POST methods mean that data can be sent from the client
+# This function is used by main.py to add the new coordinates, so that the server knows that
+# a) There are new coordinates
+# b) Where those coordinates are located so they can be accessed by send_instructions()
 @app.route('/new_coords', methods=['POST'])
 def save_array():
     # Get the array from the request
@@ -25,7 +38,8 @@ def save_array():
         return jsonify({"status": "success", "message": "Array saved successfully"})
     else:
         return jsonify({"status": "error", "message": "No array provided"}), 400
-    
+
+# Shows telemetry on the console (Raspberry Pi)
 @app.route('/telemetry', methods=['POST'])
 def get_telemetry():
     data = request.get_json()
@@ -33,7 +47,7 @@ def get_telemetry():
     if data and 'Telemetry' in data:
         array = data['Telemetry']
 
-        print(array) #! temporary
+        print(array) #! temporary, i'm not yet exactly sure what to put here
 
         return jsonify({"status": "success", "message": "Array saved successfully"})
     else:
@@ -42,6 +56,7 @@ def get_telemetry():
 current_index = 0
 
 # GET methods mean that we can send data to the client
+# This function sends lets the CyberPi read off of this server and use the instructions
 @app.route('/instruct', methods=["GET"])
 def send_instructions():
     # Instructions will be (new heading, travel distance in mm, is_end)
@@ -51,7 +66,7 @@ def send_instructions():
     newInstruction = instructionSend.next_point(current_index)
     current_index += 1
 
-    if newInstruction[2] == 0:
+    if newInstruction[2] == True:
         current_index == 0
 
     return {"instruction": newInstruction}, 200

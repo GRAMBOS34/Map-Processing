@@ -23,9 +23,16 @@ def next_point(currentIndex:int) -> tuple:
     relativeCoordinateFilePath = os.path.join("..","dpsRoboticsClubThing", "coordinates.json") # gets the relative path
     absoluteCoordinateFilePath = os.path.realpath(relativeCoordinateFilePath) # gets the aboslute path
     
-    with open(absoluteCoordinateFilePath, "r") as file:
-        data = json.load(file)
+    with open(absoluteCoordinateFilePath, "r") as file: # Opens the coordinates.json file
+        data = json.load(file) # loads the file into a usable array/dictionary (depends on the formatting)
 
+        """
+        Basically:
+        if accessing data[currentIndex + 1] doesn't throw an out-of-range error, calculate 
+        the polar coordinates and return it
+        
+        otherwise, consider it as the end of the path and just return is_end as True
+        """
         try:
             current_coordinate = data[currentIndex]
             next_coordinate = data[currentIndex + 1]
@@ -36,7 +43,6 @@ def next_point(currentIndex:int) -> tuple:
 
             # [distance, angle, is_end]
             return [new_point[0], new_point[1], False]
-        
 
         except:
             # [distance, angle, is_end]
