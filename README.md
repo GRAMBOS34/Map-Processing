@@ -47,13 +47,18 @@ who don't understand what those are lol
 
 ## How to use
 
-1) Run the webserver on the Raspberry Pi
+1. Run the webserver on the Raspberry Pi
+
    - Optional: If you have a screen, run the main.py there too
 
-2) Turn on both makeblock devices
+2. Turn on both makeblock devices
 
-3) Do either one of these:
+3. Do either one of these:
    - Move the joystick on the handheld cyberpi for **Manual Control**
    - Press the square button on the mbot for **Free Roam**
    - Press the triangle button on the mbot for **Line Following**
    - Press the triangle button on the handheld cyberpi after uploading a path on the Raspberry Pi webserver for **No Line Follow**
+
+## Notes i.e. _(Things idk how to fix so that's a feature now)_
+
+1. Currently, the grid shown on the main.py isn't aligned to what you might expect from the robot, so make sure that the mbot is on the bottom right of the area facing right
