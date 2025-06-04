@@ -25,6 +25,20 @@ who don't understand what those are lol
    `pip install -r requirements.txt`
 
 4. Connect it up to the hardware, here's a list
+
    - Raspberry Pi 4 Model b
    - Makeblock mBot neo
    - Your computer
+
+5. Put code in the Makblock mBot neo
+
+   - If you are on Windows: install the ide on their [website](mblock.cc) and code there
+
+   - If you are on Linux (like me):
+     - Go to their [website](mblock.cc)
+     - Install the mLink2
+     - Run this command in the terminal
+       ```bash
+       sudo mblock-mlink start
+       ```
+     - Code as normal

@@ -1,0 +1,45 @@
+import math
+import json
+import os
+
+# Creates the next direction
+def create_direction(current_coordinate:tuple, next_coordinate:tuple):
+    # Converts the cartesian coordinates into polar coordinates
+    # That can be easily used to direct the robot
+
+    x_diff = next_coordinate[0] - current_coordinate[0]
+    y_diff = next_coordinate[1] - current_coordinate[1]
+    
+    # Gets the distance
+    distance = math.sqrt((x_diff**2) + (y_diff**2))
+
+    # Gets the angle (converts from radians to degrees)
+    angle = (math.atan2(y_diff, x_diff) * 180) / 3.14
+    
+    return distance, angle # distance in cm
+
+# Gets the next point
+def next_point(currentIndex:int) -> tuple:   
+    relativeCoordinateFilePath = os.path.join("..","dpsRoboticsClubThing", "coordinates.json") # gets the relative path
+    absoluteCoordinateFilePath = os.path.realpath(relativeCoordinateFilePath) # gets the aboslute path
+    
+    with open(absoluteCoordinateFilePath, "r") as file:
+        data = json.load(file)
+
+        try:
+            current_coordinate = data[currentIndex]
+            next_coordinate = data[currentIndex + 1]
+
+            print(current_coordinate)
+
+            new_point = create_direction(current_coordinate, next_coordinate)
+
+            # [distance, angle, is_end]
+            return [new_point[0], new_point[1], False]
+        
+
+        except:
+            # [distance, angle, is_end]
+            new_point = [0, 0, True]
+
+            return new_point

@@ -1,9 +1,14 @@
 import event, time, cyberpi, mbot2, mbuild, random
 
+# -------- WIFI CONFIG --------
+# Change if needed
+WIFI_SSID = "Jumawan Wifi"
+WIFI_PASSWORD = "wifi.1234"
+
 @event.start
 def on_start():
-    # Connect to wifi on startup (ssid, password)
-    cyberpi.wifi.connect("Jumawan Wifi", "wifi.1234")
+    # Connects to the internet on startup (ssid, password)
+    cyberpi.wifi.connect(WIFI_SSID, WIFI_PASSWORD)
     cyberpi.display.show_label("Connected to Wifi", 12, "center", index= 0)
 
 # --------------------- Controls ---------------------
@@ -73,6 +78,35 @@ def stop():
     send_data()
     mbot2.EM_stop("ALL")
     
+# --------------------- No Line Follow ---------------------
+# Traverse to a new point set by the instruction from the raspberry pi
+@cyberpi.event.mesh_broadcast("next_move")
+def next_point_traverse():
+    data = cyberpi.wifi_broadcast.get("next_move")["instruction"]
+    
+    if data[2] == True:
+        cyberpi.wifi_broadcast.set("path_complete")
+        
+    else: 
+        # Get coterminal angle
+        coterminal_angle = cyberpi.get_rotation('z')
+
+        if coterminal_angle > 0:
+            while not (0 <= coterminal_angle <= 360):
+                coterminal_angle -= 360
+
+        if coterminal_angle < 0:
+            while not (0 <= coterminal_angle <= 360):
+                coterminal_angle += 360
+        
+        angle_deviation = coterminal_angle - data[1] # get angle deviation
+        mbot2.turn(angle_deviation) # adjust accordingly
+        
+        # Move forward
+        mbot2.straight(data[0])
+        cyberpi.wifi_broadcast.set("move_complete")
+        
+        
 # --------------------- Free Roam ---------------------
 # This mode doesn't do anything special, it just uses the ultrasonic sensor
 # to avoid obstacles without any complex logic, it's all just random

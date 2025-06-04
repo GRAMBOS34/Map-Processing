@@ -34,15 +34,16 @@ class GridWindow:
         self.gridFrame.pack(side=tk.LEFT, padx=10, pady=10)
 
         # Canvas for the space where you can click
-        self.grid_size = 600
+        self.grid_size = 200 # side length in cm
         self.canvas = tk.Canvas(self.gridFrame, width=self.grid_size, height=self.grid_size, bg="white")
         self.canvas.pack()
 
         self.canvas.bind("<Button-1>", self.onClick)
         self.canvas.bind("<Configure>", self.create_grid)
 
-        self.coordinates = []
+        self.coordinates = [[0,0]]
         self.dotRadius = 5
+        self.drawDot(0, 0)
 
         # ------------ Frame for Buttons ----------------
         self.buttonFrame = tk.Frame(master)
@@ -111,7 +112,7 @@ class GridWindow:
 
         # Server URL
         #! CHANGE THE URL IF NEEDED 
-        url = 'http://192.168.1.106:8080/new_coords'
+        url = 'http://192.168.0.141:8080/new_coords'
 
         # Send the array as JSON
         response = requests.post(url, json={'coordinates': self.coordinates})
@@ -120,10 +121,9 @@ class GridWindow:
         print(response.json())
 
         # Clears the grid space and removes all the coordinates
-        self.canvas.delete("path")  # Delete only items with the tag "path"
+        # self.canvas.delete("path")  # Delete only items with the tag "path"
         self.coordinates = [] # Resets the coordinates array
         self.statusLabel.config(text="Coordinates Sent")
-
 
 # Shows the window
 root = tk.Tk()
