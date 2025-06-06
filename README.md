@@ -58,4 +58,4 @@ but it's kinda hard to explain what I'm doing when the code itself is somewhat s
 
 ## Notes i.e. _(Things idk how to fix so that's a feature now)_
 
-1. Currently, the grid shown on the main.py isn't aligned to what you might expect from the robot, so make sure that the mbot is on the bottom right of the area facing right
+1. Currently, the grid shown on the main.py isn't aligned to what you might expect from the robot, so make sure that the mbot is on the bottom left of the area you're letting it use facing right. Just imagine it on the cartesian plane with the heading 0 degrees/radians and orient it that way
