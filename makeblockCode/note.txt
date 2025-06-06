@@ -1,4 +1,0 @@
-Go to the makeblock website copy the code into separate files and upload them to their respective devices
-
-ALSO: IF YOU ARE RUNNING THIS ON LINUX WITH THE MLINK, MAKE SURE TO TURN THAT OFF BEFORE TRYING TO READ OFF
-THE SERIAL PORT WITH THE dataFetch.py FILE
