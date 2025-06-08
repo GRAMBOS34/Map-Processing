@@ -2,8 +2,8 @@ import event, time, cyberpi, mbot2, mbuild, random
 
 # -------- WIFI CONFIG --------
 # Change if needed
-WIFI_SSID = "Jumawan Wifi"
-WIFI_PASSWORD = "wifi.1234"
+WIFI_SSID = "ssid"
+WIFI_PASSWORD = "password"
 
 @event.start
 def on_start():
