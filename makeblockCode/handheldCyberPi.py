@@ -4,8 +4,8 @@ import urequests
 
 # -------- WIFI CONFIG --------
 # Change if needed
-WIFI_SSID = "ssid"
-WIFI_PASSWORD = "password"
+WIFI_SSID = "Jumawan Wifi"
+WIFI_PASSWORD = "wifi.1234"
 
 @event.start
 def on_start():
@@ -37,7 +37,7 @@ def cmd_stop():
     
 # -------- WEB SERVER DETAILS --------
 # Change the url after launching your web server
-BASE_URL = "http://192.168.0.141:8080"
+BASE_URL = "http://192.168.0.160:8080"
 TELEMETRY_SERVER_URL = BASE_URL + "/telemetry"
 INSTRUCTION_SERVER_URL = BASE_URL + "/instruct"
 
@@ -89,9 +89,8 @@ def start_no_line_follow():
     # the rest is just recursion ig 
     # this is so that we only need to make calls when we need to  
     next_move = get_new_instrcutions(INSTRUCTION_SERVER_URL)
-    cyberpi.display.show_label(next_move, 12, 'center', index=0)
-    if next_move is not None:
-        cyberpi.wifi_broadcast.set("next_move", next_move)
+    cyberpi.display.show_label(next_move["instruction"], 12, 'center', index=0)
+    cyberpi.wifi_broadcast.set("next_move", next_move)
     
 @cyberpi.event.mesh_broadcast("move_complete")
 def no_line_follow():
@@ -102,6 +101,6 @@ def no_line_follow():
     cyberpi.wifi_broadcast.set("next_move", next_move)
     
 @cyberpi.event.mesh_broadcast('path_complete')
-def path_traversed():
+def path_complete():
     cyberpi.display.show_label("Path Fully Traversed", 12, 'center', index=0)
     

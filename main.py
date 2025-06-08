@@ -114,7 +114,7 @@ class GridWindow:
 
         # Server URL
         #! CHANGE THE URL IF NEEDED 
-        url = 'http://192.168.0.141:8080/new_coords'
+        url = 'http://192.168.0.160:8080/new_coords'
 
         # Send the array as JSON
         response = requests.post(url, json={'coordinates': self.coordinates})

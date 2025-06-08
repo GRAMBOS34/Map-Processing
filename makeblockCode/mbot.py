@@ -2,8 +2,8 @@ import event, time, cyberpi, mbot2, mbuild, random
 
 # -------- WIFI CONFIG --------
 # Change if needed
-WIFI_SSID = "ssid"
-WIFI_PASSWORD = "password"
+WIFI_SSID = "Jumawan Wifi"
+WIFI_PASSWORD = "wifi.1234"
 
 @event.start
 def on_start():
@@ -105,7 +105,6 @@ def next_point_traverse():
         # Move forward
         mbot2.straight(data[0])
         cyberpi.wifi_broadcast.set("move_complete")
-        
         
 # --------------------- Free Roam ---------------------
 # This mode doesn't do anything special, it just uses the ultrasonic sensor
