@@ -66,6 +66,10 @@ Have fun, hopefully you can bear reading the code because I **_know_** you'll al
    - Press the triangle button on the mbot for **Line Following**
    - Press the triangle button on the handheld cyberpi after uploading a path on the Raspberry Pi webserver for **No Line Follow**
 
+## However,
+
+If you want to switch modes, you'll have to turn it off and on again because I got lazy sorry lol
+
 ## Notes i.e. _Things idk how to fix so they're features now_
 
 1. Currently, the grid shown on the main.py isn't aligned to what you might expect from the robot, so make sure that the mbot is on the bottom left of the area you're letting it use facing right. Just imagine it on the cartesian plane with the heading 0 degrees/radians and orient it that way.

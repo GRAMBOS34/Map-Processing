@@ -20,7 +20,8 @@ def create_direction(current_coordinate:tuple, next_coordinate:tuple):
 
 # Gets the next point
 def next_point(currentIndex:int) -> tuple:   
-    relativeCoordinateFilePath = os.path.join("..","dpsRoboticsClubThing", "coordinates.json") # gets the relative path
+    MASTER_FOLDER = "Map-Processing" # this is the name of the folder your project is on
+    relativeCoordinateFilePath = os.path.join("..", MASTER_FOLDER, "coordinates.json") # gets the relative path
     absoluteCoordinateFilePath = os.path.realpath(relativeCoordinateFilePath) # gets the aboslute path
     
     with open(absoluteCoordinateFilePath, "r") as file: # Opens the coordinates.json file
